@@ -1,0 +1,133 @@
+@import '../00_Abstracts/index';
+
+.button {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    @include font-size(sm);
+    @include p(md);
+    @include shadow(sm);
+    @include transition-ease-in-out(med);
+
+    &:focus,
+    &:hover:not(:disabled) {
+        @include shadow(lg);
+        @include transition-ease-in-out(med);
+    }
+
+    &:active {
+        @include shadow(inner);
+        @include transition-ease-in-out(med);
+    }
+
+    @each $color,
+    $value in $theme-colors {
+        &.#{$color} {
+            @include border(solid, xxs, $color);
+            @include bg-color($color);
+
+            &:focus,
+            &:hover:not(:disabled) {
+                border-color: color($color, light);
+                @include bg-color($color, light);
+                @include transition-ease-in-out(med);
+            }
+
+            &:active {
+                @include bg-color($color, dark);
+                @include transition-ease-in-out(med);
+            }
+
+            &.hollow {
+                background-color: transparent;
+                color: color($color);
+                @include border(solid, xxs, $color);
+
+                &:focus,
+                &:hover:not(:disabled) {
+                    background-color: transparent;
+                    border: 2px solid color($color, light);
+                    color: color($color, light);
+                    @include border(solid, xxs, $color, light);
+                    @include transition-ease-in-out(med);
+                }
+
+                &:active {
+                    color: color($color, dark);
+                    @include border(solid, xxs, $color, light);
+                    @include transition-ease-in-out(med);
+                }    
+            }
+        }
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        @include shadow(inner);
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+
+    &.link {
+        background-color: transparent;
+        border: 2px solid transparent;
+        color: color(primary);
+        text-decoration: none;
+        box-shadow: none;
+
+        &:focus,
+        &:hover:not(:disabled) {
+            color: color(primary, light);
+            text-decoration: underline;
+            box-shadow: none;
+        }
+    }
+
+    &.size {
+        &-xs {
+            @include p(xs);
+            @include font-size(xs);
+        }
+
+        &-sm {
+            @include p(sm);
+            @include font-size(sm);
+        }
+
+        &-md {
+            @include p(md);
+            @include font-size(sm);
+        }
+
+        &-lg {
+            @include p(lg);
+            @include font-size(md);
+        }
+
+        &-xl {
+            @include p(xl);
+            @include font-size(lg);
+        }
+    }
+
+    &.none {
+        display: inherit;
+        line-height: inherit;
+        font-size: inherit;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+
+        &:focus,
+        &:hover:not(:disabled) {
+            box-shadow: none;
+        }
+    }
+}
